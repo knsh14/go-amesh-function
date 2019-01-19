@@ -62,20 +62,21 @@ func Amesh(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%#v", err)
 		return
 	}
-	err = uploadAmeshImage(&buf, s.ChannelID)
+	err = uploadAmeshImage(&buf, s.ChannelID, fmt.Sprintf("%s のアメッシュ", now.Format("2006年1月2日 15時 4分")))
 	if err != nil {
 		log.Printf("line 50: %#v", err)
 	}
 }
 
-func uploadAmeshImage(file io.Reader, channel string) error {
+func uploadAmeshImage(file io.Reader, channel, comment string) error {
 	token := os.Getenv("SLACK_BOT_TOKEN")
 	api := slack.New(token)
 
 	params := slack.FileUploadParameters{
-		Filename: "amesh.png",
-		Title:    "amesh",
-		Reader:   file,
+		Filename:       "amesh.png",
+		Title:          "amesh",
+		InitialComment: comment,
+		Reader:         file,
 		Channels: []string{
 			channel,
 		},
