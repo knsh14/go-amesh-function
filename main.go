@@ -62,7 +62,7 @@ func Amesh(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%#v", err)
 		return
 	}
-	err = uploadAmeshImage(&buf, s.ChannelID, fmt.Sprintf("%s のアメッシュ", now.Format("2006年1月2日 15時 4分")))
+	err = uploadAmeshImage(&buf, s.ChannelID, now.Format("2006年1月2日 15時 4分のアメッシュ"))
 	if err != nil {
 		log.Printf("line 50: %#v", err)
 	}
